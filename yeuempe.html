@@ -6,6 +6,9 @@
     <title> Yêu Empe 💖 </title>
     <style>
         body {
+            background: -webkit-linear-gradient(45deg, #ff9a9e, #fad0c4);
+            background: -moz-linear-gradient(45deg, #ff9a9e, #fad0c4);
+            background: -o-linear-gradient(45deg, #ff9a9e, #fad0c4);
             background: linear-gradient(45deg, #ff9a9e, #fad0c4);
             display: flex;
             justify-content: center;
@@ -13,6 +16,7 @@
             height: 100vh;
             overflow: hidden;
             position: relative;
+            text-size-adjust: 100%;
         }
 
         .envelope {
@@ -30,6 +34,11 @@
             opacity: 0;
             transform: scale(0.5);
             animation: fadeIn 2s forwards;
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         @keyframes fadeIn {
@@ -53,6 +62,11 @@
             animation: loadProgress 3s forwards;
         }
 
+        @-webkit-keyframes loadProgress {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
         @keyframes loadProgress {
             0% { width: 0; }
             100% { width: 100%; }
@@ -67,6 +81,11 @@
             border-radius: 5px;
             cursor: pointer;
             animation: blink 1s infinite;
+        }
+
+        @-webkit-keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         @keyframes blink {
@@ -97,6 +116,8 @@
             text-align: center;
             font-weight: bold;
             cursor: move;
+            touch-action: none;
+            user-select: none;
         }
 
         .window-content {
@@ -109,7 +130,7 @@
 </head>
 <body>
     <div class="envelope">
-        <div class="letter">💌 Yêu Kìu Nguyên Vãi Ò 💌</div>
+        <div class="letter" draggable="false">💌 Yêu Kìu Nguyên Vãi Ò 💌</div>
         <div class="progress">
             <div class="progress-bar"></div>
         </div>
@@ -122,18 +143,17 @@
         }, 3000);
 
         const messages = [
-            "1💖Nguyên ơiii!! Aiu của em bé nè <3",
-            "2💖Chúc Empe có một ngày valentine thật vui vẻ và thật xinh đẹp nha.",
-            "3💖Hong những ngày valentine, Chúc cho em bé luôn luôn khỏe mạnh,",
-            "4💖Chúc cho những niềm vui và nhiều điều may mắn luôn đến với bé,",
-            "5💖Chúc cho empe ngày càng thật xinh đẹp và hạnh phúc khi ở bên anhhh <3",
-            "6💖Thật sự anh có hơi nhạy cảm và anh muốn quấn lấy bé. Nên có lẻ sẽ làm cho em bé cảm thấy không tin tưởng được.",
-            "7💖Nhưng mà em bé đừng lo lắng gì hết cả, anh không phải là người dễ bỏ cuộc khi gặp khó đâu anh luôn có cho mình một niềm tin rất mạnh mẽ, ý chí của anh không thể nào thua kém bất cứ ai đâu.",
-            "8💖Empe hoàn toàn có thể dựa dẫm và tin tưởng vào Nguyễn Khánh Duy."
+            "💖 Nguyên ơiii!! Aiu của em bé nè <3",
+            "💖 Chúc Empe có một ngày valentine thật vui vẻ và thật xinh đẹp nha.",
+            "💖 Hong những ngày valentine, chúc cho em bé luôn luôn khỏe mạnh,",
+            "💖 Chúc cho những niềm vui và nhiều điều may mắn luôn đến với bé,",
+            "💖 Chúc cho empe ngày càng thật xinh đẹp và hạnh phúc khi ở bên anhhh <3",
+            "💖 Anh biết anh hơi nhạy cảm và thích quấn lấy bé. Nhưng anh không phải là người dễ bỏ cuộc đâu.",
+            "💖 Empe có thể hoàn toàn dựa dẫm và tin tưởng vào Nguyễn Khánh Duy."
         ];
 
         function showWindows() {
-            for (let i = 0; i < messages.length; i++) {
+            messages.forEach((msg, i) => {
                 let windowDiv = document.createElement('div');
                 windowDiv.className = 'window';
                 
@@ -143,7 +163,7 @@
                 
                 let content = document.createElement('div');
                 content.className = 'window-content';
-                content.textContent = messages[i];
+                content.textContent = msg;
                 
                 windowDiv.appendChild(titleBar);
                 windowDiv.appendChild(content);
@@ -179,7 +199,7 @@
                         document.onmouseup = null;
                     };
                 };
-            }
+            });
         }
     </script>
 </body>
