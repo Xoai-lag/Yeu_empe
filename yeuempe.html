@@ -17,6 +17,9 @@
             overflow: hidden;
             position: relative;
             text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%; /* Fix cho Safari */
+            -moz-text-size-adjust: 100%; /* Fix cho Firefox */
+            -ms-text-size-adjust: 100%; /* Fix cho Edge cũ */
         }
 
         .envelope {
@@ -36,11 +39,6 @@
             animation: fadeIn 2s forwards;
         }
 
-        @-webkit-keyframes fadeIn {
-            0% { opacity: 0; transform: scale(0.5); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
         @keyframes fadeIn {
             0% { opacity: 0; transform: scale(0.5); }
             100% { opacity: 1; transform: scale(1); }
@@ -54,17 +52,12 @@
             margin-top: 10px;
             overflow: hidden;
         }
-        
+
         .progress-bar {
             width: 0;
             height: 100%;
             background: red;
             animation: loadProgress 3s forwards;
-        }
-
-        @-webkit-keyframes loadProgress {
-            0% { width: 0; }
-            100% { width: 100%; }
         }
 
         @keyframes loadProgress {
@@ -81,11 +74,6 @@
             border-radius: 5px;
             cursor: pointer;
             animation: blink 1s infinite;
-        }
-
-        @-webkit-keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
         }
 
         @keyframes blink {
@@ -118,6 +106,7 @@
             cursor: move;
             touch-action: none;
             user-select: none;
+            -webkit-user-select: none; /* Fix cho Safari */
         }
 
         .window-content {
@@ -156,24 +145,24 @@
             messages.forEach((msg, i) => {
                 let windowDiv = document.createElement('div');
                 windowDiv.className = 'window';
-                
+
                 let titleBar = document.createElement('div');
                 titleBar.className = 'title-bar';
                 titleBar.textContent = "💖 Yêu Empe 💖";
-                
+
                 let content = document.createElement('div');
                 content.className = 'window-content';
                 content.textContent = msg;
-                
+
                 windowDiv.appendChild(titleBar);
                 windowDiv.appendChild(content);
                 document.body.appendChild(windowDiv);
-                
+
                 let x = Math.random() * (window.innerWidth - 260);
                 let y = Math.random() * (window.innerHeight - 170);
                 windowDiv.style.left = x + 'px';
                 windowDiv.style.top = y + 'px';
-                
+
                 setTimeout(() => {
                     windowDiv.style.opacity = 1;
                     windowDiv.style.transform = 'scale(1)';
