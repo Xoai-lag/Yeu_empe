@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Yêu Empe 💖 </title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: #ff6b81;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: scale(0.5);
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .progress {
+            width: 100%;
+            height: 10px;
+            background: white;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            background: red;
+            animation: loadProgress 3s forwards;
+        }
+
+        @keyframes loadProgress {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        .click-btn {
+            display: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background: #ff4757;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .window {
+            position: absolute;
+            width: 250px;
+            height: 150px;
+            background: white;
+            border: 2px solid #ff6b81;
+            border-radius: 5px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: scale(0.5) rotate(5deg);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            cursor: grab;
+        }
+
+        .title-bar {
+            background: #ff6b81;
+            color: white;
+            padding: 5px;
+            text-align: center;
+            font-weight: bold;
+            cursor: move;
+        }
+
+        .window-content {
+            padding: 10px;
+            font-size: 14px;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="envelope">
+        <div class="letter">💌 Yêu Kìu Nguyên Vãi Ò 💌</div>
+        <div class="progress">
+            <div class="progress-bar"></div>
+        </div>
+        <div class="click-btn" onclick="showWindows()">Nhấn Vào Đây</div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.querySelector(".click-btn").style.display = "block";
+        }, 3000);
+
+        const messages = [
+            "1💖Nguyên ơiii!! Aiu của em bé nè <3",
+            "2💖Chúc Empe có một ngày valentine thật vui vẻ và thật xinh đẹp nha.",
+            "3💖Hong những ngày valentine, Chúc cho em bé luôn luôn khỏe mạnh,",
+            "4💖Chúc cho những niềm vui và nhiều điều may mắn luôn đến với bé,",
+            "5💖Chúc cho empe ngày càng thật xinh đẹp và hạnh phúc khi ở bên anhhh <3",
+            "6💖Thật sự anh có hơi nhạy cảm và anh muốn quấn lấy bé. Nên có lẻ sẽ làm cho em bé cảm thấy không tin tưởng được.",
+            "7💖Nhưng mà em bé đừng lo lắng gì hết cả, anh không phải là người dễ bỏ cuộc khi gặp khó đâu anh luôn có cho mình một niềm tin rất mạnh mẽ, ý chí của anh không thể nào thua kém bất cứ ai đâu.",
+            "8💖Empe hoàn toàn có thể dựa dẫm và tin tưởng vào Nguyễn Khánh Duy."
+        ];
+
+        function showWindows() {
+            for (let i = 0; i < messages.length; i++) {
+                let windowDiv = document.createElement('div');
+                windowDiv.className = 'window';
+                
+                let titleBar = document.createElement('div');
+                titleBar.className = 'title-bar';
+                titleBar.textContent = "💖 Yêu Empe 💖";
+                
+                let content = document.createElement('div');
+                content.className = 'window-content';
+                content.textContent = messages[i];
+                
+                windowDiv.appendChild(titleBar);
+                windowDiv.appendChild(content);
+                document.body.appendChild(windowDiv);
+                
+                let x = Math.random() * (window.innerWidth - 260);
+                let y = Math.random() * (window.innerHeight - 170);
+                windowDiv.style.left = x + 'px';
+                windowDiv.style.top = y + 'px';
+                
+                setTimeout(() => {
+                    windowDiv.style.opacity = 1;
+                    windowDiv.style.transform = 'scale(1)';
+                }, i * 200);
+
+                titleBar.onmousedown = function(event) {
+                    let shiftX = event.clientX - windowDiv.getBoundingClientRect().left;
+                    let shiftY = event.clientY - windowDiv.getBoundingClientRect().top;
+
+                    function moveAt(pageX, pageY) {
+                        windowDiv.style.left = pageX - shiftX + 'px';
+                        windowDiv.style.top = pageY - shiftY + 'px';
+                    }
+
+                    function onMouseMove(event) {
+                        moveAt(event.pageX, event.pageY);
+                    }
+
+                    document.addEventListener('mousemove', onMouseMove);
+
+                    document.onmouseup = function() {
+                        document.removeEventListener('mousemove', onMouseMove);
+                        document.onmouseup = null;
+                    };
+                };
+            }
+        }
+    </script>
+</body>
+</html>
