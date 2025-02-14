@@ -1,195 +1,305 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Yêu Empe 💖 </title>
-    <style>
-        body {
-            background: -webkit-linear-gradient(45deg, #ff9a9e, #fad0c4);
-            background: -moz-linear-gradient(45deg, #ff9a9e, #fad0c4);
-            background: -o-linear-gradient(45deg, #ff9a9e, #fad0c4);
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-            text-size-adjust: 100%;
-            -webkit-text-size-adjust: 100%; /* Fix cho Safari */
-            -moz-text-size-adjust: 100%; /* Fix cho Firefox */
-            -ms-text-size-adjust: 100%; /* Fix cho Edge cũ */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yêu Empe 💖</title>
+  <style>
+    body {
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+      -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
 
-        .envelope {
-            position: relative;
-            width: 300px;
-            height: 200px;
-            background: #ff6b81;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: scale(0.5);
-            animation: fadeIn 2s forwards;
-        }
+    .envelope {
+      position: relative;
+      width: 300px;
+      height: 400px; /* Đủ không gian cho các phần */
+      border: 2px solid #ff6b81;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      background: white;
+      opacity: 0;
+      transform: scale(0.5);
+      animation: fadeIn 2s forwards;
+    }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: scale(0.5); }
-            100% { opacity: 1; transform: scale(1); }
-        }
+    /* Ảnh hiển thị ở phần trên cùng, bắt buộc hình vuông */
+    .envelope-img {
+      width: 100%;
+      aspect-ratio: 1/1; /* Bắt buộc ảnh thành hình vuông */
+      object-fit: cover;
+      border-radius: 5px;
+    }
 
-        .progress {
-            width: 100%;
-            height: 10px;
-            background: white;
-            border-radius: 5px;
-            margin-top: 10px;
-            overflow: hidden;
-        }
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
 
-        .progress-bar {
-            width: 0;
-            height: 100%;
-            background: red;
-            animation: loadProgress 3s forwards;
-        }
+    /* Thanh tiến trình */
+    .progress {
+      position: relative;
+      width: 100%;
+      height: 15px;
+      background: white;
+      border-radius: 5px;
+      overflow: hidden;
+    }
 
-        @keyframes loadProgress {
-            0% { width: 0; }
-            100% { width: 100%; }
-        }
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: red;
+      animation: loadProgress 3s forwards;
+    }
 
-        .click-btn {
-            display: none;
-            padding: 10px 20px;
-            margin-top: 10px;
-            background: #ff4757;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            animation: blink 1s infinite;
-        }
+    @keyframes loadProgress {
+      0% {
+        width: 0;
+      }
+      100% {
+        width: 100%;
+      }
+    }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
+    .progress-hearts {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      transform: translateY(-50%);
+      pointer-events: none;
+      font-size: 16px;
+    }
 
-        .window {
-            position: absolute;
-            width: 250px;
-            height: 150px;
-            background: white;
-            border: 2px solid #ff6b81;
-            border-radius: 5px;
-            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: scale(0.5) rotate(5deg);
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            cursor: grab;
-        }
+    /* Hiệu ứng lung linh cho trái tim */
+    .progress-hearts span {
+      animation: sparkle 1s infinite alternate;
+    }
 
-        .title-bar {
-            background: #ff6b81;
-            color: white;
-            padding: 5px;
-            text-align: center;
-            font-weight: bold;
-            cursor: move;
-            touch-action: none;
-            user-select: none;
-            -webkit-user-select: none; /* Fix cho Safari */
-        }
+    @keyframes sparkle {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.2);
+        opacity: 0.7;
+      }
+    }
 
-        .window-content {
-            padding: 10px;
-            font-size: 14px;
-            text-align: center;
-            color: #333;
-        }
-    </style>
+    /* Dòng chữ bên dưới in đậm */
+    .letter {
+      font-size: 18px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* Nút bấm in đậm */
+    .click-btn {
+      padding: 10px 20px;
+      color: #ff4757;
+      border-radius: 5px;
+      cursor: pointer;
+      animation: blink 1s infinite;
+      background: none;
+      border: none;
+      display: none; /* Ẩn ban đầu, hiển thị sau 3 giây */
+      font-weight: bold;
+    }
+
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .window {
+      position: absolute;
+      width: 250px;
+      height: 150px;
+      background: white;
+      border: 2px solid #ff6b81;
+      border-radius: 5px;
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: scale(0.5) rotate(5deg);
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      cursor: grab;
+    }
+
+    .title-bar {
+      background: #ff6b81;
+      color: white;
+      padding: 5px;
+      text-align: center;
+      font-weight: bold;
+      cursor: move;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .window-content {
+      padding: 10px;
+      font-size: 14px;
+      text-align: center;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-    <div class="envelope">
-        <div class="letter" draggable="false">💌 Yêu Kìu Nguyên Vãi Ò 💌</div>
-        <div class="progress">
-            <div class="progress-bar"></div>
-        </div>
-        <div class="click-btn" onclick="showWindows()">Nhấn Vào Đây</div>
+  <div class="envelope">
+    <!-- Ảnh hình vuông -->
+    <img
+      src="https://i.pinimg.com/1200x/5f/f1/99/5ff1991f5cc04a21b95b6ad839c7a170.jpg"
+      alt="Love"
+      class="envelope-img"
+    />
+
+    <!-- Thanh tiến trình -->
+    <div class="progress">
+      <div class="progress-bar"></div>
+      <div class="progress-hearts">
+        <span>❤️</span>
+        <span>❤️</span>
+        <span>❤️</span>
+      </div>
     </div>
 
-    <script>
-        setTimeout(() => {
-            document.querySelector(".click-btn").style.display = "block";
-        }, 3000);
+    <!-- Dòng chữ in đậm -->
+    <div class="letter" draggable="false">💌 Yêu Kìu Nguyên Vãi Ò 💌</div>
 
-        const messages = [
-            "💖 Nguyên ơiii!! Aiu của em bé nè <3",
-            "💖 Chúc Empe có một ngày valentine thật vui vẻ và thật xinh đẹp nha.",
-            "💖 Hong những ngày valentine, chúc cho em bé luôn luôn khỏe mạnh,",
-            "💖 Chúc cho những niềm vui và nhiều điều may mắn luôn đến với bé,",
-            "💖 Chúc cho empe ngày càng thật xinh đẹp và hạnh phúc khi ở bên anhhh <3",
-            "💖 Anh biết anh hơi nhạy cảm và thích quấn lấy bé. Nhưng anh không phải là người dễ bỏ cuộc đâu.",
-            "💖 Empe có thể hoàn toàn dựa dẫm và tin tưởng vào Nguyễn Khánh Duy."
-        ];
+    <!-- Nút bấm in đậm -->
+    <div class="click-btn" onclick="showWindows()">Nhấn Vào Đây</div>
+  </div>
 
-        function showWindows() {
-            messages.forEach((msg, i) => {
-                let windowDiv = document.createElement('div');
-                windowDiv.className = 'window';
+  <script>
+    // Hiển thị nút sau 3 giây
+    setTimeout(() => {
+      document.querySelector(".click-btn").style.display = "block";
+    }, 3000);
 
-                let titleBar = document.createElement('div');
-                titleBar.className = 'title-bar';
-                titleBar.textContent = "💖 Yêu Empe 💖";
+    // Tách thành 2 mảng tin nhắn để không gặp giới hạn lưu trữ của string
+    const messages1 = [
+      "💖 Nguyên ơiii!! Aiu của em bé nè <3",
+      "💖 Chúc Empe có một ngày valentine thật vui vẻ và thật xinh đẹp nha 💖",
+      "💖 Hong những ngày valentine, chúc cho em bé luôn luôn khỏe mạnh 💖",
+      "💖 Chúc cho những niềm vui và nhiều điều may mắn luôn đến với bé 💖",
+      "💖 Chúc cho empe ngày càng thật xinh đẹp và hạnh phúc khi ở bên anhhh 💖",
+      "💖 Anh biết anh hơi nhạy cảm và thích quấn lấy bé. Nhưng mà em bé không cần phải lo anh không phải là người dễ bỏ cuộc khi gặp khó đâu 💖",
+      "💖 Anh có cho mình một niềm tin cực kì mạnh mẽ. Và ý chí của anh luôn hơn hẳn nhiều người 💖"
+    ];
 
-                let content = document.createElement('div');
-                content.className = 'window-content';
-                content.textContent = msg;
+    const messages2 = [
+      "💖 Empe có thể hoàn toàn dựa dẫm và tin tưởng vào Nguyễn Khánh Duy.",
+      "💖 Anh cảm thấy anh thật sự là một người rất may mắn và hạnh phúc khi được em bé yêu thương, quann tâm, chăm sóc và được đồng hành cùng em bé 💖",
+      "💖 Em bé siêu dễ thương, em bé siêu xinh luôn, em bé là đỉnh nhất",
+      "💖 Yêu Empe Vãi Ò 💖",
+      "💖 Yêu Kìu Nguyên Vãi Ò 💖",
+      "💖 Anh Iuuu Empe Nhìuu lắmmmm á💖",
+      "💖 Moaaaaaa!!!💖",
+      "💖 Hy vọng Empe và Aiu sẽ luôn luôn quan tâm và đồng hành cùng nhauuu💖"
+    ];
 
-                windowDiv.appendChild(titleBar);
-                windowDiv.appendChild(content);
-                document.body.appendChild(windowDiv);
+    function showWindows() {
+      let delay = 0;
+      // Lặp qua 2 mảng messages
+      [messages1, messages2].forEach(messagesGroup => {
+        messagesGroup.forEach(msg => {
+          let windowDiv = document.createElement("div");
+          windowDiv.className = "window";
 
-                let x = Math.random() * (window.innerWidth - 260);
-                let y = Math.random() * (window.innerHeight - 170);
-                windowDiv.style.left = x + 'px';
-                windowDiv.style.top = y + 'px';
+          let titleBar = document.createElement("div");
+          titleBar.className = "title-bar";
+          titleBar.textContent = "💖 Yêu Empe 💖";
 
-                setTimeout(() => {
-                    windowDiv.style.opacity = 1;
-                    windowDiv.style.transform = 'scale(1)';
-                }, i * 200);
+          let content = document.createElement("div");
+          content.className = "window-content";
+          content.textContent = msg;
 
-                titleBar.onmousedown = function(event) {
-                    let shiftX = event.clientX - windowDiv.getBoundingClientRect().left;
-                    let shiftY = event.clientY - windowDiv.getBoundingClientRect().top;
+          windowDiv.appendChild(titleBar);
+          windowDiv.appendChild(content);
+          document.body.appendChild(windowDiv);
 
-                    function moveAt(pageX, pageY) {
-                        windowDiv.style.left = pageX - shiftX + 'px';
-                        windowDiv.style.top = pageY - shiftY + 'px';
-                    }
+          let x = Math.random() * (window.innerWidth - 260);
+          let y = Math.random() * (window.innerHeight - 170);
+          windowDiv.style.left = x + "px";
+          windowDiv.style.top = y + "px";
 
-                    function onMouseMove(event) {
-                        moveAt(event.pageX, event.pageY);
-                    }
+          setTimeout(() => {
+            windowDiv.style.opacity = 1;
+            windowDiv.style.transform = "scale(1)";
+          }, delay);
 
-                    document.addEventListener('mousemove', onMouseMove);
+          delay += 200; // tăng độ trễ cho tin nhắn tiếp theo
 
-                    document.onmouseup = function() {
-                        document.removeEventListener('mousemove', onMouseMove);
-                        document.onmouseup = null;
-                    };
-                };
-            });
-        }
-    </script>
+          // Hỗ trợ kéo cửa sổ bằng chuột và cảm ứng
+          function startDrag(e) {
+            e.preventDefault();
+            let startX = e.clientX || e.touches[0].clientX;
+            let startY = e.clientY || e.touches[0].clientY;
+            let rect = windowDiv.getBoundingClientRect();
+            let shiftX = startX - rect.left;
+            let shiftY = startY - rect.top;
+
+            function moveAt(pageX, pageY) {
+              windowDiv.style.left = pageX - shiftX + "px";
+              windowDiv.style.top = pageY - shiftY + "px";
+            }
+
+            function onMove(e) {
+              let pageX = e.clientX || e.touches[0].clientX;
+              let pageY = e.clientY || e.touches[0].clientY;
+              moveAt(pageX, pageY);
+            }
+
+            function stopDrag() {
+              document.removeEventListener("mousemove", onMove);
+              document.removeEventListener("touchmove", onMove);
+              document.removeEventListener("mouseup", stopDrag);
+              document.removeEventListener("touchend", stopDrag);
+            }
+
+            document.addEventListener("mousemove", onMove, { passive: false });
+            document.addEventListener("touchmove", onMove, { passive: false });
+            document.addEventListener("mouseup", stopDrag);
+            document.addEventListener("touchend", stopDrag);
+          }
+
+          titleBar.addEventListener("mousedown", startDrag);
+          titleBar.addEventListener("touchstart", startDrag, { passive: false });
+        });
+      });
+    }
+  </script>
 </body>
 </html>
